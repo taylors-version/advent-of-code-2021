@@ -26,12 +26,14 @@ class MyTestCase(unittest.TestCase):
     def test_puzzle1(self):
         self.assertEqual(4512, day04.puzzle1(self.data.splitlines()))
 
+
     def test_card_check(self):
         card = [[22,13,17,11,0],[8,2,23,4,24],[21,9,14,16,7],[6,10,3,18,5],[1,12,20,15,19]]
-        numbers = [13,23,8,4,21,2,7,6,5,24]
+        numbers = [2,4,5,6,7,8,13,21,23,24]
         numbers_2 = [13,23,8,4,21,2,7,6,5,27]
         self.assertEqual(True, day04.check_card(numbers, card))
         self.assertEqual(False, day04.check_card(numbers_2, card))
+        self.assertEqual(187, day04.card_score(numbers, card))
 
 
 
