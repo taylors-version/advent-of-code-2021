@@ -14,6 +14,18 @@ def puzzle1(data):
     return 0
 
 def puzzle2(data):
+    numbers = [int(i) for i in data[0].split(',')]
+
+    int_parse = [[int(n) for n in card.split()] for i, card in enumerate(data[2:]) if (i+1) % 6 != 0]
+    cards = [int_parse[i:i+5] for i in range(0, len(int_parse), 5)]
+
+    for i in range(len(numbers)):
+        for card in cards:
+            if check_card(numbers[:i + 1], card):
+                if len(cards) > 1:
+                    cards.remove(card)
+                else:
+                    return card_score(numbers[:i+1], card) * numbers[i]
     return 0
 
 

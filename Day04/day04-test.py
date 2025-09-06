@@ -26,6 +26,9 @@ class MyTestCase(unittest.TestCase):
     def test_puzzle1(self):
         self.assertEqual(4512, day04.puzzle1(self.data.splitlines()))
 
+    def test_puzzle2(self):
+        self.assertEqual(1924, day04.puzzle2(self.data.splitlines()))
+
 
     def test_card_check(self):
         card = [[22,13,17,11,0],[8,2,23,4,24],[21,9,14,16,7],[6,10,3,18,5],[1,12,20,15,19]]
