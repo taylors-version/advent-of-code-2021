@@ -1,5 +1,3 @@
-growth = dict()
-
 def puzzle1(data):
     crabs = [int(crab) for crab in data.split(',')]
     return min([sum([abs(position - crab) for crab in crabs]) for position in range(max(crabs) + 1)])
