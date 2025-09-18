@@ -9,11 +9,11 @@ class MyTestCase(unittest.TestCase):
 9899965678"""
 
     def test_puzzle1(self):
-        #self.assertEqual(15, day09.puzzle1(self.data.splitlines()))
+        self.assertEqual(15, day09.puzzle1(self.data.splitlines()))
         ben = """123
 456
 789"""
-        self.assertEqual(5, day09.puzzle1(ben.splitlines()))
+        self.assertEqual(2, day09.puzzle1(ben.splitlines()))
 
 
 
