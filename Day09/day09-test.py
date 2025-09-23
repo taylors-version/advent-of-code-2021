@@ -16,7 +16,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(2, day09.puzzle1(ben.splitlines()))
 
 
-
+    def test_puzzle2(self):
+        self.assertEqual(1134, day09.puzzle2(self.data.splitlines()))
 
 
 if __name__ == '__main__':
