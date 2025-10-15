@@ -1,3 +1,7 @@
+from functools import reduce
+from operator import mul
+
+
 class Version:
     def __init__(self, data):
         self.version = int(data,2)
@@ -10,15 +14,21 @@ class Package:
     def __init__(self, data):
         self.packages = []
         self.size = 0
+        self.val = 0
         index = 0
         self.version = Version(data[:index + 3]).version
         index += 3
-        type_id = Type(data[index:index + 3]).id
+        self.type_id = Type(data[index:index + 3]).id
         index +=3
-        if type_id == 4:
+        if self.type_id == 4:
+            binary = []
             while data[index] == "1":
+                new_data = data[index+1:index+5]
+                binary.extend(new_data)
                 index += 5
+            binary.extend(data[index+1:index+5])
             index +=5
+            self.val = int("".join(binary), 2)
         else:
             if data[index] == "0":
                 index +=1
@@ -43,6 +53,31 @@ class Package:
     def score(self):
         return self.version + sum(s.score() for s in self.packages)
 
+    def value(self):
+        values = [s.value() for s in self.packages]
+        if self.type_id == 0:
+            return sum(values)
+        elif self.type_id == 1:
+            return reduce(mul, values)
+        elif self.type_id == 2:
+            return min(values)
+        elif self.type_id == 3:
+            return max(values)
+        elif self.type_id == 4:
+            return self.val
+        elif self.type_id == 5:
+            if self.packages[0].value() > self.packages[1].value():
+                return 1
+            return 0
+        elif self.type_id == 6:
+            if self.packages[0].value() < self.packages[1].value():
+                return 1
+            return 0
+        else:
+            if self.packages[0].value() == self.packages[1].value():
+                return 1
+            return 0
+
 
 
 def puzzle1(data):
@@ -52,8 +87,10 @@ def puzzle1(data):
     return package.score()
 
 def puzzle2(data):
+    binary = "".join([bin(int(d,16))[2:].zfill(4) for d in data])
+    package = Package(binary)
 
-    return 0
+    return package.value()
 
 if __name__ == '__main__':
     with open("input.txt") as f:
