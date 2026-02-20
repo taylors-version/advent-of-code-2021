@@ -1,4 +1,6 @@
 import itertools
+from itertools import combinations
+import copy
 import math
 from functools import reduce
 
@@ -166,6 +168,13 @@ class SnailFish:
             b = SnailFish.from_string(text[i:], depth+1)
         return SnailFish(a, b, depth)
 
+def snailfish_pairs(sfs):
+    pairs=[]
+    for i in range(len(sfs)):
+        for j in range(i+1, len(sfs)):
+            pairs.append((sfs[i], sfs[j]))
+            pairs.append((sfs[j], sfs[i]))
+    return pairs
 
 def puzzle1(data):
     sfs = [SnailFish.from_string(s) for s in data]
@@ -174,7 +183,16 @@ def puzzle1(data):
 
 
 def puzzle2(data):
-    return 0
+    sfs = [SnailFish.from_string(s) for s in data]
+    alice = snailfish_pairs(sfs)
+    result = 0
+    for i in range (len(alice)):
+        a = copy.deepcopy(alice[i][0])
+        b = copy.deepcopy(alice[i][1])
+        ab = a.add(b)
+        mag = ab.magnitude()
+        result = max(result, mag)
+    return result
 
 
 if __name__ == '__main__':
