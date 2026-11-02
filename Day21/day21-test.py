@@ -9,6 +9,7 @@ class MyTestCase(unittest.TestCase):
 Player 2 starting position: 8
 """
         self.assertEqual(739785, Day21.day21.puzzle1(sample_input.splitlines()))
+        self.assertEqual(444356092776315, Day21.day21.puzzle2(sample_input.splitlines()))
 
 
 if __name__ == '__main__':
